@@ -5,7 +5,7 @@
 @section('content')
     <div class="container" style="max-width: 800px; margin: 0 auto; padding-top: 20px;">
         
-        <a href="{{ route('berita.index') }}" style="display: block; margin-bottom: 20px; color: #007bff; text-decoration: none;">&larr; Kembali ke Daftar Berita</a>
+        <a href="{{ route('berita.index') }}" style="display: block; margin-bottom: 20px; color: #007bff; text-decoration: none; font-weight: bold;">&larr; Kembali ke Daftar Berita</a>
         
         <h1 style="margin-bottom: 10px; color: #333;">{{ $post['judul'] }}</h1>
         <p style="font-size: 0.9em; color: #777; border-bottom: 1px solid #eee; padding-bottom: 10px;">

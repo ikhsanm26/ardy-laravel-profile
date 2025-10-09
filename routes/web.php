@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ContactController; // WAJIB ada di sini
+use App\Http\Controllers\ContactController; 
 
-// --- Data Berita (Didefinisikan di sini agar bisa diakses di route manapun) ---
+// --- Data Berita (Didefinisikan sekali agar bisa diakses semua route) ---
 $berita_data = [
     [
         'judul' => 'Unimus mart laris manis',
@@ -12,14 +12,14 @@ $berita_data = [
         "konten" => "Unimus Mart yang terletak di Universitas Muhammadiyah Semarang (Unimus) semakin hari semakin laris manis. Hal ini dikarenakan Unimus Mart menyediakan berbagai kebutuhan mahasiswa dengan harga yang terjangkau. Selain itu, Unimus Mart juga sering mengadakan promo-promo menarik yang membuat mahasiswa semakin tertarik untuk berbelanja di sana."
     ],
     [
-        'judul' => 'Berita unimus kedua',
-        "slug" => "berita-unimus-kedua",
-        "penulis" => "Ardy Iksan",
+        'judul' => 'Unimus Unggul',
+        "slug" => "Unimus-Unggul",
+        "penulis" => "maulana",
         "konten" => "Berita kedua tentang Unimus yang tidak kalah menarik adalah tentang prestasi yang diraih oleh mahasiswa Unimus di berbagai bidang. Mahasiswa Unimus telah berhasil meraih berbagai penghargaan baik di tingkat nasional maupun internasional. Hal ini menunjukkan bahwa Unimus tidak hanya fokus pada pendidikan akademik, tetapi juga mendukung pengembangan bakat dan minat mahasiswa di berbagai bidang."
     ],
     [
         'judul' => 'Berita Ketiga',
-        'slug' => 'berita-ketiga', // Ditambahkan slug agar bisa dicari
+        'slug' => 'berita-ketiga', 
         "penulis" => "Ardy Iksan",
         'konten' => 'Ini adalah isi dari berita ketiga.'
     ]
@@ -29,36 +29,37 @@ $berita_data = [
 
 // Halaman Utama
 Route::get('/', function () {
-    // Menggunakan view 'home' yang lebih rapi (asumsi sudah diganti namanya)
     return view('home'); 
 })->name('home');
 
-// Halaman Profil (Mengirim data)
+// Halaman Profil
 Route::get('/profil', function () {
     return view('profil', [
-        'nama' => 'Ardy Iksan',
+        'nama' => 'Ardy Ikhsan Maulana',
         'nohp' => '081392982466',
         'foto' => 'img/Ardyfoto.jpg'
     ]);
 });
 
-// Halaman Kontak (Tampilan Formulir)
+// Halaman Kontak
 Route::get('/kontak', function () {
     return view('kontak');
 })->name('kontak.index'); 
 
-// --- FITUR BERITA (DIGANTI SELURUHNYA) ---
 
-// 1. Route Daftar Berita (Menampilkan semua data, menggantikan kode error Anda)
+// ----------------------------------------------------
+// FITUR BERITA (SUDAH DIPERBAIKI)
+// ----------------------------------------------------
+
+// 1. Route DAFTAR BERITA (/berita)
 Route::get('/berita', function () use ($berita_data) {
     return view('berita', [
         'title' => 'Daftar Berita',
-        'posts' => $berita_data // Mengirim semua data berita
+        'posts' => $berita_data // Mengirim semua data
     ]);
 })->name('berita.index');
 
-// 2. Route Detail Berita (Wajib ditambahkan untuk melihat satu berita)
-// {slug} di URL ini akan mencari data yang cocok
+// 2. Route DETAIL BERITA (/berita/{slug})
 Route::get('/berita/{slug}', function ($slug) use ($berita_data) {
     
     $single_berita = []; 
@@ -71,16 +72,17 @@ Route::get('/berita/{slug}', function ($slug) use ($berita_data) {
         }
     }
     
-    // Jika berita tidak ditemukan
+    // Jika berita tidak ditemukan (misal, URL salah)
     if (empty($single_berita)) {
         abort(404);
     }
     
     return view('singleberita', [
         'title' => $single_berita['judul'],
-        "post" => $single_berita // Menggunakan 'post' agar lebih mudah di view
+        "post" => $single_berita // Variabel yang dikirim adalah $post
     ]);
 })->name('berita.single');
+// ----------------------------------------------------
 
 
 // Menerima data dari formulir kontak
