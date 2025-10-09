@@ -9,7 +9,7 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: #f8f9fa;
+            background: #3595f5ff;
             margin: 0;
             padding: 0;
         }
@@ -51,7 +51,11 @@
         <p><strong>NIM:</strong> 13242420017</p>
         <p><strong>Email:</strong> unimusardy@gmail.com</p>
         <p><strong>Hobi:</strong> Olahraga & Traveling</p>
-        <p><strong>tentang Saya:</strong> merupakan sosok yang penuh semangat dan selalu berusaha untuk tumbuh dan berkembang. Ia dikenal sebagai pribadi yang kreatif, teliti, dan memiliki kemampuan komunikasi yang baik, sehingga mudah berinteraksi dengan berbagai macam orang. Dalam menghadapi tantangan, Ardy tidak mudah menyerah dan selalu mencari solusi yang efektif. Ia juga gemar mengeksplorasi ide-ide baru, belajar hal-hal baru, dan mengembangkan keterampilan secara konsisten. Kombinasi antara keuletan, rasa ingin tahu, dan sikap positif membuatnya menjadi individu yang dapat diandalkan dalam berbagai situasi.</p>
+        <p><strong>No Telepon:</strong> 081392982466</p>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2024 Ardy Iksan Maulana. Semua Hak Dilindungi.</p>
     </div>
 </body>
 </html>

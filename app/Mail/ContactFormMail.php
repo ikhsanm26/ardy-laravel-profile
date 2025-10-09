@@ -3,51 +3,32 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class ContactFormMail extends Mailable
 {
     use Queueable, SerializesModels;
 
+    // Properti publik untuk menyimpan data dari formulir
+    public $data;
+
     /**
-     * Create a new message instance.
+     * Buat instance pesan baru.
+     * Data formulir akan dilewatkan ke sini.
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
-     * Get the message envelope.
+     * Bangun pesan.
      */
-    public function envelope(): Envelope
+    public function build()
     {
-        return new Envelope(
-            subject: 'Contact Form Mail',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
+        return $this->from($this->data['email'], $this->data['nama']) // Mengatur email pengirim (balasan)
+                    ->subject('Pesan Baru: ' . $this->data['subjek']) // Subjek email
+                    ->view('emails.contact'); // Menunjuk ke template Blade email
     }
 }
