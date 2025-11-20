@@ -79,7 +79,7 @@
             
             <ul class="skill-list">
                 <li>PHP</li>
-                <li>Laravel</li>
+                <li>Desain Grafis</li>
                 <li>HTML & CSS</li>
                 <li>Database (MySQL)</li>
                 <li>Git & GitHub</li>

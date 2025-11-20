@@ -38,4 +38,9 @@
     
     {{-- Link ke halaman Kontak --}}
     <a href="{{ url('/kontak') }}" class="{{ Request::is('kontak') ? 'active' : '' }}">Hubungi Saya</a>
+
+    {{-- MENU BARU: Mahasiswa --}}
+    {{-- Ditaruh paling bawah agar muncul di paling kanan --}}
+    <a href="{{ route('mahasiswa.index') }}" class="{{ Request::is('mahasiswa*') ? 'active' : '' }}">Mahasiswa</a>
+
 </div>

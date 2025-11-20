@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ContactController; 
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\MahasiswaController; // <--- TAMBAHAN 1: Import Controller Mahasiswa
 
 // --- Data Berita (Didefinisikan sekali agar bisa diakses semua route) ---
 $berita_data = [
@@ -19,7 +20,7 @@ $berita_data = [
     ],
     [
         'judul' => 'Berita Ketiga',
-        'slug' => 'berita-ketiga', 
+        'slug' => 'berita-ketiga',
         "penulis" => "Ardy Iksan",
         'konten' => 'Ini adalah isi dari berita ketiga.'
     ]
@@ -29,7 +30,7 @@ $berita_data = [
 
 // Halaman Utama
 Route::get('/', function () {
-    return view('home'); 
+    return view('home');
 })->name('home');
 
 // Halaman Profil
@@ -44,7 +45,7 @@ Route::get('/profil', function () {
 // Halaman Kontak
 Route::get('/kontak', function () {
     return view('kontak');
-})->name('kontak.index'); 
+})->name('kontak.index');
 
 
 // ----------------------------------------------------
@@ -62,13 +63,13 @@ Route::get('/berita', function () use ($berita_data) {
 // 2. Route DETAIL BERITA (/berita/{slug})
 Route::get('/berita/{slug}', function ($slug) use ($berita_data) {
     
-    $single_berita = []; 
+    $single_berita = [];
     foreach($berita_data as $berita)
     {
         if($berita['slug'] === $slug)
         {
             $single_berita = $berita;
-            break; 
+            break;
         }
     }
     
@@ -87,3 +88,16 @@ Route::get('/berita/{slug}', function ($slug) use ($berita_data) {
 
 // Menerima data dari formulir kontak
 Route::post('/kontak', [ContactController::class, 'send'])->name('kontak.send');
+
+
+// ----------------------------------------------------
+// TAMBAHAN 2: Route CRUD Mahasiswa
+// ----------------------------------------------------
+// Ini otomatis membuat jalur untuk:
+// - index (daftar) -> /mahasiswa
+// - create (form tambah) -> /mahasiswa/create
+// - store (simpan data) -> POST /mahasiswa
+// - edit (form edit) -> /mahasiswa/{id}/edit
+// - update (update data) -> PUT /mahasiswa/{id}
+// - destroy (hapus data) -> DELETE /mahasiswa/{id}
+Route::resource('mahasiswa', MahasiswaController::class);

@@ -53,6 +53,9 @@
         <p><strong>Hobi:</strong> Olahraga & Traveling</p>
         
         <p><strong>No Telepon:</strong> {{ $nohp }}</p>
+         <a href="{{ asset('docs/CV_Ardy.pdf') }}" download class="cv-button">
+            Unduh CV Saya (.pdf)
+        </a>
         
     </div>
 @endsection
