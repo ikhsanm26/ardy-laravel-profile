@@ -4,77 +4,65 @@ namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa; // Pastikan model Mahasiswa di-import
 use Illuminate\Http\Request;
+use App\Models\Mahasiswa; // Pastikan baris ini ada
 
 class MahasiswaController extends Controller
 {
-    // 1. Menampilkan halaman daftar mahasiswa
-    public function index()
-    {
-        // Mengambil semua data dari tabel mahasiswas
-        $mahasiswa = Mahasiswa::all();
-        
-        // Mengirim data ke view 'mahasiswa/index.blade.php'
-        return view('mahasiswa.index', compact('mahasiswa'));
+    // 1. MENAMPILKAN DATA (Index)
+    public function index() {
+        $data = Mahasiswa::all();
+        return view('mahasiswa.index', compact('data'), [
+            "title" => "Data Mahasiswa",
+        ]);
     }
 
-    // 2. Menampilkan halaman form tambah data
-    public function create()
-    {
-        // PENTING: Ini mengarah ke file 'resources/views/mahasiswa/tambahmahasiswa.blade.php'
-        return view('mahasiswa.tambahmahasiswa');
+    // 2. FORM TAMBAH (tambahmahasiswa)
+    public function tambahmahasiswa() {
+        return view('mahasiswa.tambahmahasiswa', [
+            "title" => "Tambah Data Mahasiswa",
+        ]);
     }
 
-    // 3. Menyimpan data baru ke database
-    public function store(Request $request)
+    // 3. PROSES SIMPAN (insertdata) - SUDAH DIPERBAIKI
+    public function insertdata(Request $request)
     {
-        // Validasi input agar tidak boleh kosong
         $request->validate([
-            'nim'     => 'required|unique:mahasiswas,nim', // NIM harus unik
-            'nama'    => 'required',
+            'nim' => 'required',
+            'nama' => 'required',
             'jurusan' => 'required',
         ]);
 
-        // Simpan data ke database
-        Mahasiswa::create($request->all());
+        // PENTING: Pakai except('_token') biar gak error MassAssignment
+        Mahasiswa::create($request->except(['_token', 'submit']));
 
-        // Redirect kembali ke halaman index dengan pesan sukses
-        return redirect()->route('mahasiswa.index')
-                         ->with('success', 'Data Mahasiswa berhasil ditambahkan');
+        return redirect()->route('mahasiswa')->with('success', 'Data Berhasil Di Tambahkan');
     }
 
-    // 4. Menampilkan halaman form edit
-    public function edit($id)
+    // 4. FORM EDIT (tampildata)
+    public function tampildata($id)
     {
-        // Cari data mahasiswa berdasarkan ID
-        $mahasiswa = Mahasiswa::findOrFail($id);
-        
-        // Kirim data ke view edit (kamu perlu buat file edit.blade.php nanti)
-        return view('mahasiswa.edit', compact('mahasiswa'));
-    }
-
-    // 5. Mengupdate data di database
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'nim'     => 'required',
-            'nama'    => 'required',
-            'jurusan' => 'required',
+        $data = Mahasiswa::find($id);
+        return view("mahasiswa.edit", [
+            "title" => "Edit Data Mahasiswa",
+            "data" => $data,
         ]);
-
-        $mahasiswa = Mahasiswa::findOrFail($id);
-        $mahasiswa->update($request->all());
-
-        return redirect()->route('mahasiswa.index')
-                         ->with('success', 'Data Mahasiswa berhasil diupdate');
     }
 
-    // 6. Menghapus data
-    public function destroy($id)
+    // 5. PROSES UPDATE (editdata) - SUDAH DIPERBAIKI
+    public function editdata(Request $request, $id)
     {
-        $mahasiswa = Mahasiswa::findOrFail($id);
-        $mahasiswa->delete();
+        $data = Mahasiswa::find($id);
+        
+        // PENTING: Pakai except('_token') di sini juga
+        $data->update($request->except(['_token', 'submit']));
+        
+        return redirect()->route('mahasiswa')->with('success', 'Data Berhasil Di Update');
+    }
 
-        return redirect()->route('mahasiswa.index')
-                         ->with('success', 'Data Mahasiswa berhasil dihapus');
+    // 6. HAPUS DATA (delete)
+    public function delete($id) {
+        $data = Mahasiswa::find($id);
+        $data->delete();
+        return redirect()->route('mahasiswa')->with('success', 'Data Berhasil Dihapus');
     }
 }

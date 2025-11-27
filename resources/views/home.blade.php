@@ -72,7 +72,7 @@
             <h1>Ardy Ikhsan Maulana</h1>
             
             <p>
-                Saya adalah seorang mahasiswa dengan semangat tinggi dalam dunia Coding & Pengembangan Web menggunakan Laravel. Di sini, Anda dapat menemukan informasi lebih detail tentang saya dan kemampuan saya.
+                Saya adalah seorang mahasiswa dengan semangat tinggi dalam Belajar hal baru untuk mengembangkan kemampuan saya. Di sini, Anda dapat menemukan informasi lebih detail tentang saya dan kemampuan saya.
             </p>
             
             <a href="{{ url('/profil') }}" class="cta-button">Lihat Profil Lengkap Saya</a>

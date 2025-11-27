@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('mahasiswas', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('nim')->unique();
-            $table->string('prodi');
-            $table->string('email')->unique();
+            
+            // PERBAIKAN: Sesuaikan nama kolom dengan Controller & View
+            $table->string('nim')->unique(); // Kita pakai string biar aman kalau ada angka 0 di depan
+            $table->string('nama');          // Ganti 'name' jadi 'nama'
+            $table->string('jurusan');       // Ganti 'prodi' jadi 'jurusan'
+            
+            // Kolom email dihapus dulu karena di form tidak ada inputannya
             
             $table->timestamps();
         });
