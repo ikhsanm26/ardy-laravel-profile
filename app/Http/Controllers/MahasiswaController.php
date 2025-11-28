@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Mahasiswa; // Pastikan model Mahasiswa di-import
+use App\Models\Mahasiswa; // Cukup satu kali saja di sini
 use Illuminate\Http\Request;
-use App\Models\Mahasiswa; // Pastikan baris ini ada
+// Baris kedua yang duplikat sudah dihapus
 
 class MahasiswaController extends Controller
 {
@@ -23,7 +23,7 @@ class MahasiswaController extends Controller
         ]);
     }
 
-    // 3. PROSES SIMPAN (insertdata) - SUDAH DIPERBAIKI
+    // 3. PROSES SIMPAN (insertdata)
     public function insertdata(Request $request)
     {
         $request->validate([
@@ -32,7 +32,6 @@ class MahasiswaController extends Controller
             'jurusan' => 'required',
         ]);
 
-        // PENTING: Pakai except('_token') biar gak error MassAssignment
         Mahasiswa::create($request->except(['_token', 'submit']));
 
         return redirect()->route('mahasiswa')->with('success', 'Data Berhasil Di Tambahkan');
@@ -48,12 +47,11 @@ class MahasiswaController extends Controller
         ]);
     }
 
-    // 5. PROSES UPDATE (editdata) - SUDAH DIPERBAIKI
+    // 5. PROSES UPDATE (editdata)
     public function editdata(Request $request, $id)
     {
         $data = Mahasiswa::find($id);
         
-        // PENTING: Pakai except('_token') di sini juga
         $data->update($request->except(['_token', 'submit']));
         
         return redirect()->route('mahasiswa')->with('success', 'Data Berhasil Di Update');

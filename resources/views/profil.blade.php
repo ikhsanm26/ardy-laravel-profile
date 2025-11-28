@@ -51,9 +51,12 @@
         <p><strong>NIM:</strong> 13242420017</p>
         <p><strong>Email:</strong> unimusardy@gmail.com</p>
         <p><strong>Hobi:</strong> Olahraga & Traveling</p>
-        
         <p><strong>No Telepon:</strong> {{ $nohp }}</p>
-         <a href="{{ asset('docs/CV_Ardy.pdf') }}" download class="cv-button">
+        <a href="mailto:unimusardy@gmail.com?subject=Lamaran%20Kerja&body=Halo%20HRD,%0A%0ASaya%20ingin%20melamar...">
+    Kirim Email
+</a>
+        <br><br>
+         <a href="{{ asset('images/idih.jpg') }}" download class="cv-button">
             Unduh CV Saya (.pdf)
         </a>
         
